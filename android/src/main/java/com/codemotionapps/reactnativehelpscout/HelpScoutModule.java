@@ -16,6 +16,7 @@ import com.helpscout.beacon.ui.BeaconEventLifecycleHandler;
 import com.helpscout.beacon.ui.BeaconOnClosedListener;
 import com.helpscout.beacon.ui.BeaconOnOpenedListener;
 
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -75,9 +76,9 @@ public class HelpScoutModule extends ReactContextBaseJavaModule {
 		this.userEmail = identity.hasKey("email") ? identity.getString("email") : "";
 		if (identity.hasKey("name")) {
 			this.userName = identity.getString("name");
-			Beacon.login(email, this.userName);
+			Beacon.login(this.userEmail, this.userName);
 		} else {
-			Beacon.login(email);
+			Beacon.login(this.userEmail);
 		}
 
 		Iterator<Map.Entry<String, Object>> i = identity.getEntryIterator();
@@ -140,6 +141,8 @@ public class HelpScoutModule extends ReactContextBaseJavaModule {
 		this.userName,
 		subject,
 		content,
+		Collections.<Integer, String>emptyMap(),
+		Collections.<String>emptyList(),
 		this.userEmail));
 	}
 
