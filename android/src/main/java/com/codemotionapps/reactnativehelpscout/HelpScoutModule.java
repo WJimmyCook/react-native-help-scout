@@ -10,6 +10,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.helpscout.beacon.Beacon;
 import com.helpscout.beacon.model.BeaconScreens;
+import com.helpscout.beacon.model.PreFilledForm;
 import com.helpscout.beacon.ui.BeaconActivity;
 import com.helpscout.beacon.ui.BeaconEventLifecycleHandler;
 import com.helpscout.beacon.ui.BeaconOnClosedListener;
@@ -21,6 +22,9 @@ import java.util.Map;
 
 public class HelpScoutModule extends ReactContextBaseJavaModule {
 	private final ReactApplicationContext reactContext;
+
+	private String userEmail;
+	private String userName;
 
 	public HelpScoutModule(final ReactApplicationContext reactContext) {
 		super(reactContext);
@@ -68,9 +72,10 @@ public class HelpScoutModule extends ReactContextBaseJavaModule {
 
 	@ReactMethod
 	public void identify(ReadableMap identity) {
-		String email = identity.hasKey("email") ? identity.getString("email") : "";
+		this.userEmail = identity.hasKey("email") ? identity.getString("email") : "";
 		if (identity.hasKey("name")) {
-			Beacon.login(email, identity.getString("name"));
+			this.userName = identity.getString("name");
+			Beacon.login(email, this.userName);
 		} else {
 			Beacon.login(email);
 		}
@@ -127,5 +132,20 @@ public class HelpScoutModule extends ReactContextBaseJavaModule {
 	@ReactMethod
 	public void dismiss(Callback callback) {
 
+	}
+
+	@ReactMethod
+	public void prefillForm(String subject, String content) {
+	  Beacon.addPreFilledForm(new PreFilledForm(
+		this.userName,
+		subject,
+		content,
+		this.userEmail));
+	}
+
+
+	@ReactMethod
+	public void clearFormPrefill() {
+	  Beacon.contactFormReset();
 	}
 }

@@ -6,6 +6,9 @@
 
 @implementation RNHelpScoutBeacon
 {
+    NSString *formSubject;
+    NSString *formText;
+    
     HSBeaconSettings *settings;
     bool hasListeners;
 }
@@ -103,6 +106,19 @@ RCT_EXPORT_METHOD(logout)
     [HSBeacon logout];
 }
 
+RCT_EXPORT_METHOD(prefillForm:(NSString *)subject content:(NSString *)text)
+{
+    formSubject = subject;
+    formText = text;
+}
+
+
+RCT_EXPORT_METHOD(clearFormPrefill)
+{
+    formSubject = nil;
+    formText = nil;
+}
+
 - (void)close:(RCTResponseSenderBlock)callback
 {
     [HSBeacon dismissBeacon: callback == NULL ? ^{} : ^{
@@ -133,6 +149,16 @@ RCT_EXPORT_METHOD(logout)
 {
     if (!hasListeners) return;
 	[self sendEventWithName:@"close" body:NULL];
+}
+
+-(void)prefill:(HSBeaconContactForm *)form {
+    if (formSubject != nil) {
+        form.subject = formSubject;
+    }
+    
+    if (formText != nil) {
+        form.text = formText;
+    }
 }
 
 @end

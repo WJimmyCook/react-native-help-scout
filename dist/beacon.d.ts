@@ -16,6 +16,8 @@ interface IBeacon extends EventSubscriptionVendor {
     contactForm(): void;
     previousMessages(): void;
     dismiss(callback: () => void): void;
+    prefillForm(subject: string, content: string): void;
+    clearFormPrefill(): void;
 }
 declare type Events = {
     open: [];

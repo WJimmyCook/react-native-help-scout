@@ -1,14 +1,16 @@
-import { NativeModules, NativeEventEmitter } from 'react-native';
-import { EventEmitter } from 'events';
-const NativeModule = NativeModules.RNHelpScoutBeacon;
-const nativeEmitter = new NativeEventEmitter(NativeModule);
-const events = new EventEmitter();
-nativeEmitter.addListener('open', () => {
+"use strict";
+exports.__esModule = true;
+var react_native_1 = require("react-native");
+var events_1 = require("events");
+var NativeModule = react_native_1.NativeModules.RNHelpScoutBeacon;
+var nativeEmitter = new react_native_1.NativeEventEmitter(NativeModule);
+var events = new events_1.EventEmitter();
+nativeEmitter.addListener('open', function () {
     events.emit('open');
 });
-nativeEmitter.addListener('close', () => {
+nativeEmitter.addListener('close', function () {
     events.emit('close');
 });
 NativeModule.events = events;
-export default NativeModule;
+exports["default"] = NativeModule;
 //# sourceMappingURL=beacon.js.map
