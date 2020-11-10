@@ -147,18 +147,16 @@ RCT_EXPORT_METHOD(clearFormPrefill)
 
 - (void)onBeaconClose:(HSBeaconSettings *)beaconSettings
 {
+    [self clearFormPrefill];
+    [HSBeacon reset];
+
     if (!hasListeners) return;
 	[self sendEventWithName:@"close" body:NULL];
 }
 
 -(void)prefill:(HSBeaconContactForm *)form {
-    if (formSubject != nil) {
-        form.subject = formSubject;
-    }
-    
-    if (formText != nil) {
-        form.text = formText;
-    }
+    form.subject = formSubject;
+    form.text = formText;
 }
 
 @end
