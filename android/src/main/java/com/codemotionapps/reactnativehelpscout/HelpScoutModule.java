@@ -89,6 +89,11 @@ public class HelpScoutModule extends ReactContextBaseJavaModule {
 			if (key == "email" || key == "name") continue;
 			Beacon.addAttributeWithKey(key, (String) entry.getValue());
 		}
+
+		Beacon.setSessionAttributes(MutableMap.of(
+		      "OS", "Android", 
+		      "AppVersion", context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName
+		))
 	}
 
 	@ReactMethod

@@ -139,6 +139,13 @@ RCT_EXPORT_METHOD(clearFormPrefill)
 	return @[@"open", @"close"];
 }
 
+- (NSDictionary<NSString *,NSString *> *)sessionAttributes {
+    return @{
+        @"OS": @"iOS",
+        @"AppVersion": [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+    };
+}
+
 - (void)onBeaconOpen:(HSBeaconSettings *)beaconSettings
 {
     if (!hasListeners) return;
