@@ -16,10 +16,13 @@ import com.helpscout.beacon.ui.BeaconEventLifecycleHandler;
 import com.helpscout.beacon.ui.BeaconOnClosedListener;
 import com.helpscout.beacon.ui.BeaconOnOpenedListener;
 
+import java.lang.Exception;
+
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.HashMap;
 
 public class HelpScoutModule extends ReactContextBaseJavaModule {
 	private final ReactApplicationContext reactContext;
@@ -90,10 +93,14 @@ public class HelpScoutModule extends ReactContextBaseJavaModule {
 			Beacon.addAttributeWithKey(key, (String) entry.getValue());
 		}
 
-		Beacon.setSessionAttributes(MutableMap.of(
-		      "OS", "Android", 
-		      "AppVersion", context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName
-		))
+		try {
+		  Beacon.setSessionAttributes(new HashMap<String, String>() {{
+			put("OS", "Android");
+			put("AppVersion", reactContext.getPackageManager().getPackageInfo(reactContext.getPackageName(), 0).versionName);
+		    }}
+		  );
+		} catch (Exception e) {
+		}
 	}
 
 	@ReactMethod
