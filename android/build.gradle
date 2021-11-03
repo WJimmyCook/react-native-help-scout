@@ -45,6 +45,7 @@ android {
 }
 
 repositories {
+	mavenCentral()
 	mavenLocal()
 	maven {
 		// All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
@@ -58,7 +59,7 @@ repositories {
 	jcenter()
 }
 
-def _beaconVersion = safeExtGet("helpscoutBeacon", "2.0.2")
+def _beaconVersion = safeExtGet("helpscoutBeacon", "3.0.2")
 
 dependencies {
 	// ref:
@@ -67,7 +68,5 @@ dependencies {
 	implementation 'com.facebook.react:react-native:+'  // From node_modules
 
 	// noinspection GradleDynamicVersion
-	implementation "com.helpscout:beacon-core:${_beaconVersion}"
-	// noinspection GradleDynamicVersion
-	implementation "com.helpscout:beacon-ui:${_beaconVersion}"
+	implementation "com.helpscout:beacon:${_beaconVersion}"
 }
