@@ -150,7 +150,7 @@ public class HelpScoutModule extends ReactContextBaseJavaModule {
 	@ReactMethod
 	public void prefillForm(String subject, String content) {
 	  Beacon.addPreFilledForm(new PreFilledForm(
-		this.userName == null ? "" : this.userName,,
+		this.userName == null ? "" : this.userName,
 		subject,
 		content,
 		Collections.<Integer, String>emptyMap(),
