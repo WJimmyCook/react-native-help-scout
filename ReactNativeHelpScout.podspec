@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,m}"
 
   s.dependency 'React'
-  s.dependency 'Beacon', '~> 2.2.4'
+  s.dependency 'Beacon', '~> 3.0.1'
 
   s.frameworks = 'UIKit'
 
