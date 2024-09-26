@@ -79,9 +79,9 @@ public class HelpScoutModule extends ReactContextBaseJavaModule {
 		this.userEmail = identity.hasKey("email") ? identity.getString("email") : "";
 		if (identity.hasKey("name")) {
 			this.userName = identity.getString("name");
-			Beacon.login(this.userEmail, this.userName);
+			Beacon.identify(this.userEmail, this.userName);
 		} else {
-			Beacon.login(this.userEmail);
+			Beacon.identify(this.userEmail);
 		}
 
 		Iterator<Map.Entry<String, Object>> i = identity.getEntryIterator();
